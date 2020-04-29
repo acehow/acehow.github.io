@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>One Piece</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<style>
+    .top{
+        width: 100%;
+        height: 10%;
+    }
+
+    .bottom{
+        width: 100%;
+        height: 90%;
+    }
+</style>
+</head>
+<body>
+<div class="top">
+<button type="button" onclick="prev()">Prev</button>
+<input id="pages" type="text" value="01" readonly />
+<button type="button" onclick="next()">Next</button>
+</div>
+<div class="bottom"><img id="opimg" src="onepiece/"></img></div>
+
+<script>
+	function requestParam(val) {
+		var reg = new RegExp("(^|&)" + val + "=([^&]*)(&|$)");
+		var result = window.location.search.substr(1).match(reg);
+		return result ? decodeURIComponent(result[2]) : null;
+	}
+	let page=requestParam("c");
+	let chapter="";
+	if(page!=null){
+		if(Number(page)>20){
+			chapter=page;
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-01.jpg";
+			document.getElementById("pages").value="01";
+		}
+	}
+	
+	function prev(){
+		if(chapter!=""){
+			let cpage=document.getElementById("pages").value;
+			if(Number(cpage)==1){
+				alert("First Page");
+				return;
+			}
+			let npage=("0"+(Number(cpage)-1)).slice(-2);
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
+			document.getElementById("pages").value=npage;
+		}
+	}
+	
+	function next(){
+		if(chapter!=""){
+			let cpage=document.getElementById("pages").value;
+			let npage=("0"+(Number(cpage)+1)).slice(-2);
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
+			document.getElementById("pages").value=npage;
+		}
+	}
+</script>
+</body>
+</html>
