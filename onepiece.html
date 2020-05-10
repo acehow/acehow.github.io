@@ -20,24 +20,33 @@
 <body>
 <div class="top">
 <button type="button" onclick="prev()">Prev</button>
-<input id="pages" type="text" value="01" readonly />
+<select id="pages" value="01" onchange="sel()">
+	<option value = "01">01</option>
+</select>
 <button type="button" onclick="next()">Next</button>
 </div>
+<br>
 <div class="bottom"><img id="opimg" src="onepiece/"></img></div>
-
 <script>
 	function requestParam(val) {
 		var reg = new RegExp("(^|&)" + val + "=([^&]*)(&|$)");
 		var result = window.location.search.substr(1).match(reg);
 		return result ? decodeURIComponent(result[2]) : null;
 	}
-	let page=requestParam("c");
-	let chapter="";
-	if(page!=null){
-		if(Number(page)>20){
-			chapter=page;
-			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-01.jpg";
-			document.getElementById("pages").value="01";
+	let maxpage=requestParam("m");
+	let chapter=requestParam("c");
+
+	document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-01.jpg";
+	document.getElementById("pages").value="01";
+	for (var i=2; i<=Number(maxpage); i++){
+		let p=("0"+i).slice(-2);
+		document.getElementById("pages").options.add(new Option(p,p));
+	}
+	
+	function sel(){
+		if(chapter!=""){
+			let npage=document.getElementById("pages").value;
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
 		}
 	}
 	
@@ -57,6 +66,10 @@
 	function next(){
 		if(chapter!=""){
 			let cpage=document.getElementById("pages").value;
+			if(cpage==maxpage){
+				alert("Last Page");
+				return;
+			}
 			let npage=("0"+(Number(cpage)+1)).slice(-2);
 			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
 			document.getElementById("pages").value=npage;
