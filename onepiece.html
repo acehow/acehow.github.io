@@ -35,8 +35,14 @@
 	}
 	let maxpage=requestParam("m");
 	let chapter=requestParam("c");
+	let ext="jpg";
+	if (requestParam("e") == null || requestParam("e")=="" ){
+		
+	} else {
+		ext=requestParam("e");	
+	}
 
-	document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-01.jpg";
+	document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-01."+ext;
 	document.getElementById("pages").value="01";
 	for (var i=2; i<=Number(maxpage); i++){
 		let p=("0"+i).slice(-2);
@@ -46,7 +52,7 @@
 	function sel(){
 		if(chapter!=""){
 			let npage=document.getElementById("pages").value;
-			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+"."+ext;
 		}
 	}
 	
@@ -58,7 +64,7 @@
 				return;
 			}
 			let npage=("0"+(Number(cpage)-1)).slice(-2);
-			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+"."+ext;
 			document.getElementById("pages").value=npage;
 		}
 	}
@@ -71,7 +77,7 @@
 				return;
 			}
 			let npage=("0"+(Number(cpage)+1)).slice(-2);
-			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+".jpg";
+			document.getElementById("opimg").src="onepiece/"+chapter+"/OnePiece-"+chapter+"-"+npage+"."+ext;
 			document.getElementById("pages").value=npage;
 		}
 	}
